@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: users-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userservice
+  template:
+    metadata:
+      labels:
+        app: userservice
+    spec:
+      containers:
+        - name: userservice
+          image: flachens/ba-users:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-clusterip-srv
+spec: 
+  type: ClusterIP
+  selector:
+    app: userservice
+  ports:
+  - name: userservice
+    protocol: TCP
+    port: 80
+    targetPort: 80

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exercises-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exerciseservice
+  template:
+    metadata:
+      labels:
+        app: exerciseservice
+    spec:
+      containers:
+        - name: exerciseservice
+          image: flachens/ba-exercises
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exercises-clusterip-srv
+spec: 
+  type: ClusterIP
+  selector:
+    app: exerciseservice
+  ports:
+  - name: exerciseservice 
+    protocol: TCP
+    port: 80
+    targetPort: 80

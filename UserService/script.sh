@@ -1,0 +1,1 @@
+docker build -t flachens/ba-users . && docker push flachens/ba-users && kubectl rollout restart deployment users-depl
