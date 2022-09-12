@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using UserService.Dtos.RabbitMQ;
 
 namespace UserService.Repositories
 {
@@ -32,7 +33,6 @@ namespace UserService.Repositories
             }
             return response;
         }
-
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
 
@@ -42,7 +42,6 @@ namespace UserService.Repositories
             {
                 response.Success = false;
                 response.Message = "User already exists.";
-
                 return response;
             }
 
@@ -55,6 +54,7 @@ namespace UserService.Repositories
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             response.Data = user.Id;
+
             return response;
 
         }
@@ -104,6 +104,11 @@ namespace UserService.Repositories
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public User GetUserById(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.Id == id);
         }
     }
 

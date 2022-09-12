@@ -1,6 +1,6 @@
 using System.Text;
 using System.Text.Json;
-using UserService.DTOs.RabbitMQ;
+using UserService.Dtos.RabbitMQ;
 using RabbitMQ.Client;
 
 namespace UserService.RabbitMQ

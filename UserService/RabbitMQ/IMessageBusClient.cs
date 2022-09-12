@@ -1,4 +1,4 @@
-using UserService.DTOs.RabbitMQ;
+using UserService.Dtos.RabbitMQ;
 
 namespace UserService.RabbitMQ
 {

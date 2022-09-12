@@ -1,4 +1,4 @@
-namespace UserService.DTOs.Requests
+namespace UserService.Dtos.Requests
 {
     public class UserRegisterDto
     {

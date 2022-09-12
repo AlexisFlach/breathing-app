@@ -1,4 +1,4 @@
-namespace UserService.DTOs.RabbitMQ
+namespace UserService.Dtos.RabbitMQ
 {
     public class UserPublishedDto
     {
