@@ -25,10 +25,13 @@ namespace UserService.Repositories
         {
             var response = new ServiceResponse<string>();
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username.ToLower().Equals(username.ToLower()));
-            if(user == null) {
+            if (user == null)
+            {
                 response.Success = false;
                 response.Message = "Please check your username and password";
-            }  else {
+            }
+            else
+            {
                 response.Data = CreateToken(user);
             }
             return response;
@@ -84,8 +87,8 @@ namespace UserService.Repositories
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
         }
-        private string CreateToken(User user) 
-        {   
+        private string CreateToken(User user)
+        {
             List<Claim> claims = new List<Claim> {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username)
@@ -94,7 +97,8 @@ namespace UserService.Repositories
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor {
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = creds
@@ -111,5 +115,4 @@ namespace UserService.Repositories
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }
     }
-
 }

@@ -37,11 +37,14 @@ namespace UserService.Controllers
 
             var UserReadDto = _mapper.Map<UserReadDto>(request);
 
-            try {
+            try
+            {
                 var userPublishedDto = _mapper.Map<UserPublishedDto>(request);
                 userPublishedDto.Event = "User_Published";
                 _messageBusClient.PublishNewUser(userPublishedDto);
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
             }
             return Ok(response);
@@ -58,7 +61,7 @@ namespace UserService.Controllers
 
             return NotFound();
         }
-        
+
         [HttpPost("login")]
         public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDto request)
         {
