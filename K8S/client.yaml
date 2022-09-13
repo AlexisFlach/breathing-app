@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clientservice
+  template:
+    metadata:
+      labels:
+        app: clientservice
+    spec:
+      containers:
+        - name: clientservice
+          image: flachens/ba-client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-clusterip-srv
+spec: 
+  type: ClusterIP
+  selector:
+    app: clientservice
+  ports:
+  - name: clientservice 
+    protocol: TCP
+    port: 80
+    targetPort: 80

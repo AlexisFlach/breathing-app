@@ -21,7 +21,7 @@ namespace ExerciseService.Controllers
 
         [HttpGet]
         public ActionResult<IEnumerable<UserReadDto>> GetUsers()
-        {   
+        {
             Console.WriteLine("Getting all users from Exercice Service");
             var userItems = _exerciseRepository.GetAllUsers();
 

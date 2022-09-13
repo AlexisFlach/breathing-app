@@ -6,7 +6,7 @@ using ExerciseService.Repositories;
 
 namespace ExerciseService.Events
 {
-   public class EventProcessor : IEventProcessor
+    public class EventProcessor : IEventProcessor
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly IMapper _mapper;
@@ -37,7 +37,7 @@ namespace ExerciseService.Events
 
             var eventType = JsonSerializer.Deserialize<GenericEventDto>(notifcationMessage);
 
-            switch(eventType.Event)
+            switch (eventType.Event)
             {
                 case "User_Published":
                     Console.WriteLine("--> User Published Event Detected");
@@ -53,13 +53,13 @@ namespace ExerciseService.Events
             using (var scope = _scopeFactory.CreateScope())
             {
                 var repo = scope.ServiceProvider.GetRequiredService<IExerciseRepository>();
-                
+
                 var userPublishedDto = JsonSerializer.Deserialize<UserPublishedDto>(userPublishedMessage);
 
                 try
                 {
                     var user = _mapper.Map<User>(userPublishedDto);
-                    if(!repo.ExternalUserExists(user.ExternalUserID))
+                    if (!repo.ExternalUserExists(user.ExternalUserID))
                     {
                         repo.CreateUser(user);
                         repo.SaveChanges();
