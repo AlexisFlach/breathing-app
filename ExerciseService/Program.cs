@@ -25,6 +25,12 @@ builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHostedService<MessageBusSubscriber>();
+
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+  builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

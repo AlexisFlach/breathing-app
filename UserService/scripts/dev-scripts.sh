@@ -1,0 +1,1 @@
+docker buildx build --platform linux/amd64 -t flachens/ba-users . && docker push flachens/ba-users && kubectl rollout restart deployment users-depl

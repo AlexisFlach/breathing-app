@@ -1,0 +1,1 @@
+docker build -t flachens/ba-client . && docker push flachens/ba-client && kubectl rollout restart deployment client-depl

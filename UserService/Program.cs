@@ -38,6 +38,11 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+  builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

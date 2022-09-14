@@ -1,1 +1,1 @@
-docker build -t flachens/ba-exercises . && docker push flachens/ba-exercises && kubectl rollout restart deployment exercises-depl
+docker buildx build --platform linux/amd64 -t flachens/ba-exercises . && docker push flachens/ba-exercises && kubectl rollout restart deployment exercises-depl
